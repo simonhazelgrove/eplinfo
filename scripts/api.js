@@ -1,7 +1,7 @@
 function GetApi() {
     return {
         key: "b947dad5dd8d4eccbb7439605a8d13ad",
-        url: "http://api.football-data.org/v1/",
+        url: "https://api.football-data.org/v1/",
         get: function (path, success) {
             $("#status").text("Loading " + path + "...");
             var cacheKey = "cache://" + path;
