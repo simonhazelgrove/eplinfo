@@ -75,34 +75,5 @@ function GetApiAdaptor() {
                 success(league);
             });
         }
-
-        //    getLeague: function (success) {
-        //    var self = this;
-        //    var league = {
-        //        id: "",
-        //        name: "",
-        //        week: 0,
-        //        table: null
-        //    };
-        //    self.api.getCompetition(function (competition) {
-        //        league.id = competition.id;
-        //        league.name = competition.caption;
-        //        league.week = competition.currentMatchday;
-        //        self.api.getLeagueTable(competition.id, function (table) {
-        //            league.table = _.map(table.standing, function (tableRow, key) {
-        //                var teamRow = {
-        //                    row: key + 1,
-        //                    teamId: tableRow.teamId,
-        //                    teamName: tableRow.teamName,
-        //                    playedGames: tableRow.playedGames,
-        //                    goalDifference: tableRow.goalDifference,
-        //                    points: tableRow.points
-        //                }
-        //                return teamRow;
-        //            });
-        //            success(league);
-        //        });
-        //    });
-        //}
     }
 }
