@@ -35,11 +35,11 @@ function GetApi() {
         getLeagueTable: function (leagueId, success) {
             return this.get("competitions/" + leagueId + "/leagueTable", success);
         },
-        getTeam: function (teamId, success) {
-            return this.get("teams/" + teamId, success);
+        getLeagueFixtures: function (leagueId, success) {
+            return this.get("competitions/" + leagueId + "/fixtures", success);
         },
-        getTeamFixtures: function(teamId, success) {
-            return this.get("teams/" + teamId + "/fixtures", success);
+        getLeagueTeams: function (leagueId, success) {
+            return this.get("competitions/" + leagueId + "/teams", success);
         }
     }
 }

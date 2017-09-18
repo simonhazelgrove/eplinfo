@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -31,7 +31,10 @@
 <script src="scripts/api-adaptor.js"></script>
 <script src="scripts/api-display.js"></script>
 <script type="text/javascript">
-    $(function() {
+    $.readyException = function (error) {
+        console.log(error);
+    };
+    $(function () {
         $("#clear-cache").click(function() {
             sessionStorage.clear();
             alert("Cache data removed.");
