@@ -93,16 +93,36 @@ function GetApiAdaptor() {
                     .filter(function(fixture) { return fixture.awayTeamName == team.name && fixture.completed == true; })
                     .sortBy("week")
                     .value();
-                team.homeStreak = self.getStreakFromFixtures(homeResults);
-                team.awayStreak = self.getStreakFromFixtures(awayResults);
+                team.homeStreak = self.getStreakFromFixtures(homeResults, team.name);
+                team.awayStreak = self.getStreakFromFixtures(awayResults, team.name);
             }, self)
         },
-        getStreakFromFixtures: function(fixtures) {
-            var streak = {
-                type: "W",
-                length: 0
+        getStreakFromFixtures: function (fixtures, teamName) {
+            var fixtureIndex = fixtures.length - 1;
+            var streakType = this.getFixtureResult(fixtures[fixtureIndex], teamName);
+            var streakLength = 0;
+            if (streakType != "?") {
+                do {
+                    fixtureIndex--;
+                    streakLength++;
+                } while (fixtureIndex >= 0 && this.getFixtureResult(fixtures[fixtureIndex], teamName) == streakType);
+            }
+            return { 
+                type: streakType,
+                length: streakLength
             };
-            return streak;
+        },
+        getFixtureResult: function(fixture, teamName) {
+            var isHomeTeam = fixture.homeTeamName == teamName;
+            if (fixture.homeTeamScore > fixture.awayTeamScore) {
+                return isHomeTeam ? "W" : "L";
+            } else if (fixture.homeTeamScore < fixture.awayTeamScore) {
+                return isHomeTeam ? "L" : "W";
+            } else if (fixture.homeTeamScore == fixture.awayTeamScore) {
+                return "D";
+            } else {
+                return "?";
+            }
         },
         createTableTeams: function(data) {
             _.each(data.table, function (tableRow) {
