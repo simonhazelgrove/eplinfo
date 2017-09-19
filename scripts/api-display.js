@@ -1,24 +1,59 @@
-function GetApiDisplay(apiAdaptor) {
+function GetApiDisplay() {
     return {
-        apiAdaptor: apiAdaptor,
         tableElement: $("#league-table"),
         fixturesElement: $("#league-fixtures"),
-        displayLeague: function () {
+        weekSelect: $("#week-select"),
+        prevWeekButton: $("#prev-week-button"),
+        nextWeekButton: $("#next-week-button"),
+        displayLeague: function (data) {
+            this.bindWeekSelect(data);
+            this.bindNextAndPrevWeekButtons(data);
+            this.drawTable(data);
+        },
+        bindWeekSelect: function (data) {
             var self = this;
-            this.apiAdaptor.getData(function (data) {
-                self.drawFixtures(data);
-                self.drawTable(data);
+            this.weekSelect.empty();
+            for (var i = 1; i <= data.totalWeeks; i++) {
+                var option = $("<option></option>").attr("value", i).text(i);
+                this.weekSelect.append(option);
+            }
+            this.weekSelect.change(function() {
+                var week = self.weekSelect.val();
+                self.drawFixtures(data, week);
+            });
+            this.weekSelect.val(data.currentWeek);
+            this.weekSelect.change();
+        },
+        bindNextAndPrevWeekButtons: function (data) {
+            var self = this;
+            this.prevWeekButton.click(function () {
+                var week = parseInt(self.weekSelect.val());
+                if (week > 1) {
+                    self.weekSelect.val(week - 1);
+                    self.weekSelect.change();
+                }
+            });
+            this.nextWeekButton.click(function () {
+                var week = parseInt(self.weekSelect.val());
+                if (week < data.totalWeeks) {
+                    self.weekSelect.val(week + 1);
+                    self.weekSelect.change();
+                }
             });
         },
-        drawFixtures: function (data) {
+        drawFixtures: function (data, week) {
             var self = this;
-            var fixtureHtml = ""
-            _.each(data.thisWeeksFixtures, function (fixture) {
+            var fixtureHtml = "";
+            var fixtures = data.getWeekFixtures(week);
+            _.each(fixtures, function (fixture) {
                 fixtureHtml += "<div>";
-                fixtureHtml += fixture.homeTeam.name + " v " + fixture.awayTeam.name;
+                fixtureHtml += "<p>" + fixture.homeTeam.name + " v " + fixture.awayTeam.name + "</p>";
+                if (fixture.completed) {
+                    fixtureHtml += "<p>Final Score: " + fixture.homeTeamScore + " v " + fixture.awayTeamScore + "</p>";
+                }
                 fixtureHtml += "</div>";
             });
-            self.fixturesElement.append(fixtureHtml);
+            self.fixturesElement.empty().append(fixtureHtml);
         },
         drawTable: function(data) {
             var self = this;
@@ -34,7 +69,7 @@ function GetApiDisplay(apiAdaptor) {
                     tableItem.points + "</td></tr>";
             });
             tableHtml += "</table>";
-            self.tableElement.append(tableHtml);
+            self.tableElement.empty().append(tableHtml);
         }
     }
 }

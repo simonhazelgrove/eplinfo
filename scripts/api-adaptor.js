@@ -36,15 +36,15 @@ function GetApiAdaptor() {
                 id: self.apiCompetition.id,
                 name: self.apiCompetition.caption,
                 currentWeek: self.apiCompetition.currentMatchday,
+                totalWeeks: self.apiCompetition.numberOfMatchdays,
                 teams: _.map(self.apiTeams.teams, self.convertApiTeam),
                 fixtures: _.map(self.apiFixtures.fixtures, self.convertApiFixture),
                 table: _.map(self.apiLeagueTable.standing, self.convertApiTableRow),
-                thisWeeksFixtures: null
+                getWeekFixtures: function (week) { return _.where(data.fixtures, { week: parseInt(week) }); }
             };
             self.createTeamStreaks(data);
             self.createTableTeams(data);
             self.createFixtureTeams(data);
-            data.thisWeeksFixtures = _.where(data.fixtures, { week: data.currentWeek });
             success(data);
         },
         convertApiTeam: function (apiTeam, key) {
