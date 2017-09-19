@@ -56,6 +56,7 @@
 <script src="scripts/api.js"></script>
 <script src="scripts/api-adaptor.js"></script>
 <script src="scripts/api-display.js"></script>
+<script src="scripts/predictors/simple.js"></script>
 <script type="text/javascript">
     $.readyException = function (error) {
         console.log(error);
@@ -67,10 +68,11 @@
         });
         var apiAdaptor = GetApiAdaptor();
         var apiDisplay = GetApiDisplay();
-        var leagueData = null;
-        apiAdaptor.getData(function (data) {
-            leagueData = data;
-            apiDisplay.displayLeague(data);
+        apiAdaptor.predictors = [
+            GetSimplePredictor()
+        ];
+        apiAdaptor.getData(function () {
+            apiDisplay.displayLeague(apiAdaptor.data);
         });
     });
 </script>

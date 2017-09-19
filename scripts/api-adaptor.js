@@ -6,6 +6,8 @@ function GetApiAdaptor() {
         apiLeagueTable: null,
         apiTeams: null,
         apiFixtures: null,
+        data: null,
+        predictors: [],
         getData: function (success) {
             var self = this;
             var jqXhrs = [];
@@ -32,7 +34,7 @@ function GetApiAdaptor() {
         },
         joinData: function (success) {
             var self = this;
-            var data = {
+            self.data = {
                 id: self.apiCompetition.id,
                 name: self.apiCompetition.caption,
                 currentWeek: self.apiCompetition.currentMatchday,
@@ -40,19 +42,33 @@ function GetApiAdaptor() {
                 teams: _.map(self.apiTeams.teams, self.convertApiTeam),
                 fixtures: _.map(self.apiFixtures.fixtures, self.convertApiFixture),
                 table: _.map(self.apiLeagueTable.standing, self.convertApiTableRow),
-                getWeekFixtures: function (week) { return _.where(data.fixtures, { week: parseInt(week) }); }
+                getWeekFixtures: self.getWeekFixtures,
+                adaptor: self
             };
-            self.createTeamStreaks(data);
-            self.createTableTeams(data);
-            self.createFixtureTeams(data);
-            success(data);
+            self.createTeamTablePositions(self.data);
+            self.createTeamStreaks(self.data);
+            self.createTableTeams(self.data);
+            self.createFixtureTeams(self.data);
+            success();
+        },
+        getWeekFixtures: function (week) {
+            var self = this;
+            var fixtures = _.where(this.fixtures, { week: parseInt(week) });
+            _.each(fixtures, function(fixture) {
+                fixture.predictions = [];
+                _.each(self.adaptor.predictors, function (predictor) {
+                    predictor.predict(fixture)
+                });
+            });
+            return fixtures;
         },
         convertApiTeam: function (apiTeam, key) {
             var team = {
                 id: key,
                 name: apiTeam.name,
                 homeStreak: null,
-                awayStreak: null
+                awayStreak: null,
+                tablePosition: null
             }
             return team;
         },
@@ -68,6 +84,7 @@ function GetApiAdaptor() {
                 awayTeam: null,
                 awayTeamName: apiFixture.awayTeamName,
                 awayTeamScore: apiFixture.result.goalsAwayTeam,
+                predictions: []
             }
             return fixture;
         },
@@ -81,6 +98,12 @@ function GetApiAdaptor() {
                 points: apiTableRow.points
             }
             return tableRow;
+        },
+        createTeamTablePositions: function() {
+            var self = this;
+            _.each(self.data.teams, function (team) {
+                team.tablePosition = _.findIndex(this.data.table, { teamName: team.name });
+            }, self)
         },
         createTeamStreaks: function (data) {
             var self = this;

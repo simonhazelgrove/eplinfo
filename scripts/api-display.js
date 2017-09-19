@@ -49,8 +49,11 @@ function GetApiDisplay() {
                 fixtureHtml += "<div>";
                 fixtureHtml += "<p>" + fixture.homeTeam.name + " v " + fixture.awayTeam.name + "</p>";
                 if (fixture.completed) {
-                    fixtureHtml += "<p>Final Score: " + fixture.homeTeamScore + " v " + fixture.awayTeamScore + "</p>";
+                    fixtureHtml += "<p>Final Score: " + fixture.homeTeamScore + " : " + fixture.awayTeamScore + "</p>";
                 }
+                _.each(fixture.predictions, function(prediction) {
+                    fixtureHtml += "<p>" + prediction.predictorName + ": " + prediction.homeTeamScore + " : " + prediction.awayTeamScore + "</p>";
+                });
                 fixtureHtml += "</div>";
             });
             self.fixturesElement.empty().append(fixtureHtml);
