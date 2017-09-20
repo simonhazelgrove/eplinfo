@@ -19,13 +19,14 @@
         <button id="clear-cache" class="btn btn-sm btn-secondary col-sm-2">Clear Cache</button>
     </div>
 </header>
-
-<div class="container">
-
-    <div id="status" class="alert alert-secondary" role="alert"></div>
     
-    <div class="row">
+<div class="container">
+    <div id="status" class="alert alert-secondary" role="alert"></div>
+</div>
 
+<div id="main-content" class="container">
+
+    <div class="row">
         <div id="league-fixtures-container" class="col">
             <h2>Fixtures</h2>
             <div class="container">
@@ -48,26 +49,23 @@
             </div>
             <div id="league-fixtures"></div>
         </div>
-
         <div id="league-table-container" class="col">
             <h2>Current Table</h2>
             <div id="league-table"></div>
         </div>
-
     </div>
-
 </div>
 
-<footer class="footer bg-dark text-light">
-    <div class="container">
-        <ul class="list-unstyled">
+<div class="container">
+    <footer class="bg-dark text-light row">
+        <ul class="list-unstyled col">
             <li><a href="tests.html">Unit Tests</a></li>
             <li>API Info: <a href="http://api.football-data.org">api.football-data.org</a></li>
             <li>More APIs: <a href="https://www.jokecamp.com/blog/guide-to-football-and-soccer-data-and-apis/#footballdata">www.jokecamp.com/blog/guide-to-football-and-soccer-data-and-apis</a></li>
             <li>Team ratings: <a href="http://sinceawin.com/data/elo/league/div/e0">sinceawin.com/data/elo</a></li>
         </ul>
-    </div>
-</footer>
+    </footer>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -94,11 +92,11 @@
             GetSimplePredictor()
         ];
         apiAdaptor.getData(function () {
+            $("#main-content").show();
             apiDisplay.hideStatus();
             apiDisplay.displayLeague(apiAdaptor.data);
         });
     });
 </script>
-
 </body>
 </html>

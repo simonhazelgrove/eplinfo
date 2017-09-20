@@ -26,3 +26,7 @@ header #toolbar {
 #league-fixtures .row {
     padding: 10px 5px;
 }
+
+#main-content {
+    display: none;
+}
