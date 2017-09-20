@@ -15,26 +15,30 @@
     <h1>EPL Info</h1>
     <h2 id="title"></h2>
     <p id="status"></p>
+    
+    <div class="row">
 
-    <div id="league-fixtures-container">
-        <form>
-            <div class="form-group row">
-                <label for="week-select">Week</label>
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <button id="prev-week-button" class="btn btn-secondary" type="button">&lt;</button>
-                    </span>
-                    <select class="form-control" id="week-select"></select>
-                    <span class="input-group-btn">
-                        <button id="next-week-button" class="btn btn-secondary" type="button">&gt;</button>
-                    </span>
+        <div id="league-fixtures-container" class="col">
+            <form>
+                <div class="form-group row">
+                    <label for="week-select">Week</label>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button id="prev-week-button" class="btn btn-secondary" type="button">&lt;</button>
+                        </span>
+                        <select class="form-control" id="week-select"></select>
+                        <span class="input-group-btn">
+                            <button id="next-week-button" class="btn btn-secondary" type="button">&gt;</button>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </form>
-        <div id="league-fixtures"></div>
-    </div>
+            </form>
+            <div id="league-fixtures"></div>
+        </div>
 
-    <div id="league-table"></div>
+        <div id="league-table" class="col"></div>
+
+    </div>
 
     <button id="clear-cache">Clear Cache</button>
 
