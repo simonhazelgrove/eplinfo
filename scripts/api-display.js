@@ -5,8 +5,10 @@ function GetApiDisplay() {
         weekSelect: $("#week-select"),
         prevWeekButton: $("#prev-week-button"),
         nextWeekButton: $("#next-week-button"),
+        title: $("#title"),
         statusBar: $("#status"),
         displayLeague: function (data) {
+            this.title.text(data.name);
             this.bindWeekSelect(data);
             this.bindNextAndPrevWeekButtons(data);
             this.drawTable(data);
@@ -60,9 +62,9 @@ function GetApiDisplay() {
                         if ((fixture.homeTeamScore < fixture.awayTeamScore && prediction.homeTeamScore < prediction.awayTeamScore)
                            || (fixture.homeTeamScore > fixture.awayTeamScore && prediction.homeTeamScore > prediction.awayTeamScore)
                            || (fixture.homeTeamScore === fixture.awayTeamScore && prediction.homeTeamScore === prediction.awayTeamScore)) {
-                            fixtureHtml += "<span class='text-success'>&#10004;</span>";
+                            fixtureHtml += "<span class='text-success'>&nbsp;&#10004;</span>";
                         } else {
-                            fixtureHtml += "<span class='text-danger'>&#10008;</span>";
+                            fixtureHtml += "<span class='text-danger'>&nbsp;&#10008;</span>";
                         }
                     }
                     fixtureHtml += "</div>";
@@ -75,7 +77,7 @@ function GetApiDisplay() {
         },
         drawTable: function(data) {
             var self = this;
-            var tableHtml = "<table class='table table-hover table-striped table-inverse table-responsive'><thead><tr><th>Pos</th><th>Team</th><th>Played</th><th>Home Streak</th><th>Away Streak</th><th>Diff</th><th>Points</th></tr></thead><tbody>";
+            var tableHtml = "<table class='table table-striped table-responsive'><thead class='thead-inverse'><tr><th>Pos</th><th>Team</th><th>Played</th><th>Home Streak</th><th>Away Streak</th><th>Diff</th><th>Points</th></tr></thead><tbody>";
             _.each(data.table, function (tableItem) {
                 tableHtml += "<tr><td>" +
                     tableItem.row + "</td><td>" +

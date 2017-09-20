@@ -9,35 +9,47 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
+    
+<header class="container">
+    <div class="row">
+        <img src="images/header.png" alt="Football pitch">
+    </div>
+    <h1 id="title" class="text-light">EPL Info</h1>
+</header>
 
 <div class="container">
-
-    <h1>EPL Info</h1>
-    <h2 id="title"></h2>
 
     <div id="status" class="alert alert-secondary" role="alert"></div>
     
     <div class="row">
 
         <div id="league-fixtures-container" class="col">
-            <form>
-                <div class="form-group row">
-                    <label for="week-select">Week</label>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <button id="prev-week-button" class="btn btn-secondary" type="button">&lt;</button>
-                        </span>
-                        <select class="form-control" id="week-select"></select>
-                        <span class="input-group-btn">
-                            <button id="next-week-button" class="btn btn-secondary" type="button">&gt;</button>
-                        </span>
+            <h2>Fixtures</h2>
+            <div class="container">
+                <form>
+                    <div class="form-group row">
+                        <label for="week-select" class="col-sm-3 col-form-label">Week:</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button id="prev-week-button" class="btn btn-secondary" type="button">&lt;</button>
+                                </span>
+                                <select class="form-control" id="week-select"></select>
+                                <span class="input-group-btn">
+                                    <button id="next-week-button" class="btn btn-secondary" type="button">&gt;</button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
             <div id="league-fixtures"></div>
         </div>
 
-        <div id="league-table" class="col"></div>
+        <div id="league-table-container" class="col">
+            <h2>Current Table</h2>
+            <div id="league-table"></div>
+        </div>
 
     </div>
 
@@ -47,7 +59,7 @@
 
 <footer class="footer bg-dark text-light">
     <div class="container">
-        <ul>
+        <ul class="list-unstyled">
             <li><a href="tests.html">Unit Tests</a></li>
             <li>API Info: <a href="http://api.football-data.org">api.football-data.org</a></li>
             <li>More APIs: <a href="https://www.jokecamp.com/blog/guide-to-football-and-soccer-data-and-apis/#footballdata">www.jokecamp.com/blog/guide-to-football-and-soccer-data-and-apis</a></li>

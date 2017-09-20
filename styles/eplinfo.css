@@ -1,7 +1,24 @@
-.row-striped:nth-of-type(odd){
-  background-color: #efefef;
+.row-striped:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.05);
 }
 
-.row-striped:nth-of-type(even){
+.row-striped:nth-of-type(even) {
   background-color: #ffffff;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+header img {
+    width: 100%;
+    height: auto;
+}
+
+header h1 {
+    margin-top: -1.5em;
+}
+
+#league-fixtures .row {
+    padding: 10px 5px ;
 }
