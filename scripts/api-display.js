@@ -60,7 +60,7 @@ function GetApiDisplay() {
         },
         drawTable: function(data) {
             var self = this;
-            var tableHtml = "<table><tr><th>Pos</th><th>Team</th><th>Played</th><th>Home Streak</th><th>Away Streak</th><th>Diff</th><th>Points</th></tr>";
+            var tableHtml = "<table class='table table-hover table-striped table-inverse table-responsive'><thead><tr><th>Pos</th><th>Team</th><th>Played</th><th>Home Streak</th><th>Away Streak</th><th>Diff</th><th>Points</th></tr></thead><tbody>";
             _.each(data.table, function (tableItem) {
                 tableHtml += "<tr><td>" +
                     tableItem.row + "</td><td>" +
@@ -71,7 +71,7 @@ function GetApiDisplay() {
                     tableItem.goalDifference + "</td><td>" +
                     tableItem.points + "</td></tr>";
             });
-            tableHtml += "</table>";
+            tableHtml += "</tbody></table>";
             self.tableElement.empty().append(tableHtml);
         }
     }
