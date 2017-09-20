@@ -47,13 +47,15 @@ function GetApiDisplay() {
             var fixtures = data.getWeekFixtures(week);
             _.each(fixtures, function (fixture) {
                 fixtureHtml += "<div class='row row-striped'>";
-                fixtureHtml += "<p>" + fixture.homeTeam.name + " v " + fixture.awayTeam.name + "</p>";
+                fixtureHtml += "<div class='col'>" + fixture.homeTeam.name + " v " + fixture.awayTeam.name + "</div>";
                 if (fixture.completed) {
-                    fixtureHtml += "<p>Final Score: " + fixture.homeTeamScore + " : " + fixture.awayTeamScore + "</p>";
+                    fixtureHtml += "<div class='col'>Final Score: " + fixture.homeTeamScore + " : " + fixture.awayTeamScore + "</div>";
                 }
+                fixtureHtml += "<div class='col'>";
                 _.each(fixture.predictions, function(prediction) {
                     fixtureHtml += "<p>" + prediction.predictorName + ": " + prediction.homeTeamScore + " : " + prediction.awayTeamScore + "</p>";
                 });
+                fixtureHtml += "</div>";
                 fixtureHtml += "</div>";
             });
             fixtureHtml += "</div>";
