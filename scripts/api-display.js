@@ -47,7 +47,7 @@ function GetApiDisplay() {
             var fixtures = data.getWeekFixtures(week);
             _.each(fixtures, function (fixture) {
                 fixtureHtml += "<div class='row row-striped'>";
-                fixtureHtml += "<div class='col'><b>" + fixture.homeTeam.name + "</b> v <b>" + fixture.awayTeam.name + "</b></div>";
+                fixtureHtml += "<div class='col'>" + fixture.homeTeam.name + " v " + fixture.awayTeam.name + "</div>";
                 if (fixture.completed) {
                     fixtureHtml += "<div class='col'>Final Score: " + fixture.homeTeamScore + " : " + fixture.awayTeamScore + "</div>";
                 }
@@ -56,10 +56,12 @@ function GetApiDisplay() {
                     fixtureHtml += "<div>";
                     fixtureHtml += prediction.predictorName + ": " + prediction.homeTeamScore + " : " + prediction.awayTeamScore + "";
                     if (fixture.completed) {
-                        if (fixture.homeTeamScore < fixture.awayTeamScore && prediction.homeTeamScore < prediction.awayTeamScore) {
-                            fixtureHtml += "&#10004;";
-                        } else if (fixture.homeTeamScore > fixture.awayTeamScore && prediction.homeTeamScore > prediction.awayTeamScore) {
-                            fixtureHtml += "&#10008;";
+                        if (fixture.homeTeamScore < fixture.awayTeamScore && prediction.homeTeamScore < prediction.awayTeamScore
+                           || fixture.homeTeamScore > fixture.awayTeamScore && prediction.homeTeamScore > prediction.awayTeamScore
+                           || fixture.homeTeamScore === fixture.awayTeamScore && prediction.homeTeamScore === prediction.awayTeamScore) {
+                            fixtureHtml += "<span class='text-success'>&#10004;</span>";
+                        } else
+                            fixtureHtml += "<span class='text-danger'>&#10008;</span>";
                         }
                     }
                     fixtureHtml += "</div>";
