@@ -14,7 +14,8 @@
 
     <h1>EPL Info</h1>
     <h2 id="title"></h2>
-    <p id="status"></p>
+
+    <div id="status" class="alert alert-secondary" role="alert"></div>
     
     <div class="row">
 
@@ -78,6 +79,7 @@
             GetSimplePredictor()
         ];
         apiAdaptor.getData(function () {
+            apiDisplay.hideStatus();
             apiDisplay.displayLeague(apiAdaptor.data);
         });
     });

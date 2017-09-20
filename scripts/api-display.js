@@ -5,6 +5,7 @@ function GetApiDisplay() {
         weekSelect: $("#week-select"),
         prevWeekButton: $("#prev-week-button"),
         nextWeekButton: $("#next-week-button"),
+        statusBar: $("#status"),
         displayLeague: function (data) {
             this.bindWeekSelect(data);
             this.bindNextAndPrevWeekButtons(data);
@@ -87,6 +88,15 @@ function GetApiDisplay() {
             });
             tableHtml += "</tbody></table>";
             self.tableElement.empty().append(tableHtml);
+        },
+        showStatus: function (message, isError) {
+            this.statusBar.text(message);
+            if (isError) {
+                this.statusBar.removeClass("alert-secondary").addClass("alert-danger");
+            }
+        },
+        hideStatus: function() {
+            this.statusBar.slideUp();
         }
     }
 }

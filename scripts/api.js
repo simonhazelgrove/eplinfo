@@ -1,9 +1,12 @@
 function GetApi() {
+    var apiDisplay = GetApiDisplay();
     return {
+        display: apiDisplay,
         key: "b947dad5dd8d4eccbb7439605a8d13ad",
         url: "https://api.football-data.org/v1/",
         get: function (path, success) {
-            $("#status").text("Loading " + path + "...");
+            var self = this;
+            self.display.showStatus("Loading " + path + "...")
             var cacheKey = "cache://" + path;
             var data = sessionStorage.getItem(cacheKey);
             if (data !== null) {
@@ -16,11 +19,11 @@ function GetApi() {
                     dataType: 'json',
                     type: 'GET',
                 }).done(function(response) {
-                    $("#status").text("Successfully loaded " + path);
+                    self.display.showStatus("Successfully loaded " + path)
                     sessionStorage.setItem(cacheKey, JSON.stringify(response));
                     success(response);
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    $("#status").text("Failed to load " + path);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    self.display.showStatus("Failed to load " + path, true);
                     return null;
                 });
                 return jqXhr;
