@@ -60,7 +60,7 @@ function GetApiDisplay() {
                            || (fixture.homeTeamScore > fixture.awayTeamScore && prediction.homeTeamScore > prediction.awayTeamScore)
                            || (fixture.homeTeamScore === fixture.awayTeamScore && prediction.homeTeamScore === prediction.awayTeamScore)) {
                             fixtureHtml += "<span class='text-success'>&#10004;</span>";
-                        } else
+                        } else {
                             fixtureHtml += "<span class='text-danger'>&#10008;</span>";
                         }
                     }
