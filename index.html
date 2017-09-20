@@ -13,8 +13,11 @@
 <header class="container">
     <div class="row">
         <img src="images/header.png" alt="Football pitch">
+        <h1 id="title" class="text-light">EPL Info</h1>
     </div>
-    <h1 id="title" class="text-light">EPL Info</h1>
+    <div id="toolbar" class="bg-dark text-white row">
+        <button id="clear-cache" class="btn btn-sm btn-secondary col-sm-2">Clear Cache</button>
+    </div>
 </header>
 
 <div class="container">
@@ -53,8 +56,6 @@
 
     </div>
 
-    <button id="clear-cache">Clear Cache</button>
-
 </div>
 
 <footer class="footer bg-dark text-light">
@@ -82,8 +83,10 @@
     };
     $(function () {
         $("#clear-cache").click(function () {
-            sessionStorage.clear();
-            alert("Cache data removed.");
+            if (confirm("This will clear the cached data and refresh the page - are you sure?")) {
+                sessionStorage.clear();
+                window.location.reload(false);
+            }
         });
         var apiAdaptor = GetApiAdaptor();
         var apiDisplay = GetApiDisplay();
