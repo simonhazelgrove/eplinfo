@@ -12,25 +12,29 @@ function GetApiAdaptor() {
             var self = this;
             var jqXhrs = [];
 
-            jqXhrs.push(self.api.getCompetition(function(competition) {
+            var jqXhr = self.api.getCompetition(function(competition) {
                 self.apiCompetition = competition;
+            });
+
+            $.when(jqXhr).then(function() {
                 jqXhrs.push(self.api.getLeagueTable(self.apiCompetition.id,
-                    function(leagueTable) {
+                    function (leagueTable) {
                         self.apiLeagueTable = leagueTable;
                     }));
                 jqXhrs.push(self.api.getLeagueFixtures(self.apiCompetition.id,
-                    function(leagueFixtures) {
+                    function (leagueFixtures) {
                         self.apiFixtures = leagueFixtures;
                     }));
                 jqXhrs.push(self.api.getLeagueTeams(self.apiCompetition.id,
-                    function(leagueTeams) {
+                    function (leagueTeams) {
                         self.apiTeams = leagueTeams;
                     }));
-            }));
 
-            $.when.apply($, jqXhrs).then(function() {
-                self.joinData(success);
+                $.when.apply($, jqXhrs).then(function () {
+                    self.joinData(success);
+                });
             });
+
         },
         joinData: function (success) {
             var self = this;
