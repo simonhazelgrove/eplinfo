@@ -56,9 +56,9 @@ function GetApiDisplay() {
                     fixtureHtml += "<div>";
                     fixtureHtml += prediction.predictorName + ": " + prediction.homeTeamScore + " : " + prediction.awayTeamScore + "";
                     if (fixture.completed) {
-                        if (fixture.homeTeamScore < fixture.awayTeamScore && prediction.homeTeamScore < prediction.awayTeamScore
-                           || fixture.homeTeamScore > fixture.awayTeamScore && prediction.homeTeamScore > prediction.awayTeamScore
-                           || fixture.homeTeamScore === fixture.awayTeamScore && prediction.homeTeamScore === prediction.awayTeamScore) {
+                        if ((fixture.homeTeamScore < fixture.awayTeamScore && prediction.homeTeamScore < prediction.awayTeamScore)
+                           || (fixture.homeTeamScore > fixture.awayTeamScore && prediction.homeTeamScore > prediction.awayTeamScore)
+                           || (fixture.homeTeamScore === fixture.awayTeamScore && prediction.homeTeamScore === prediction.awayTeamScore)) {
                             fixtureHtml += "<span class='text-success'>&#10004;</span>";
                         } else
                             fixtureHtml += "<span class='text-danger'>&#10008;</span>";
