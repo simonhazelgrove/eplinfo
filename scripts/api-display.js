@@ -43,10 +43,10 @@ function GetApiDisplay() {
         },
         drawFixtures: function (data, week) {
             var self = this;
-            var fixtureHtml = "";
+            var fixtureHtml = "<div class='container'>";
             var fixtures = data.getWeekFixtures(week);
             _.each(fixtures, function (fixture) {
-                fixtureHtml += "<div>";
+                fixtureHtml += "<div class='row row-striped'>";
                 fixtureHtml += "<p>" + fixture.homeTeam.name + " v " + fixture.awayTeam.name + "</p>";
                 if (fixture.completed) {
                     fixtureHtml += "<p>Final Score: " + fixture.homeTeamScore + " : " + fixture.awayTeamScore + "</p>";
@@ -56,6 +56,7 @@ function GetApiDisplay() {
                 });
                 fixtureHtml += "</div>";
             });
+            fixtureHtml += "</div>";
             self.fixturesElement.empty().append(fixtureHtml);
         },
         drawTable: function(data) {
