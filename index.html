@@ -75,6 +75,7 @@
 <script src="scripts/api-adaptor.js"></script>
 <script src="scripts/api-display.js"></script>
 <script src="scripts/predictors/simple.js"></script>
+<script src="scripts/predictors/streaker.js"></script>
 <script type="text/javascript">
     $.readyException = function (error) {
         console.log(error);
@@ -89,7 +90,8 @@
         var apiAdaptor = GetApiAdaptor();
         var apiDisplay = GetApiDisplay();
         apiAdaptor.predictors = [
-            GetSimplePredictor()
+            GetSimplePredictor(),
+            GetStreakerPredictor()
         ];
         apiAdaptor.getData(function () {
             $("#main-content").show();
