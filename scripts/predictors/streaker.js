@@ -1,4 +1,6 @@
-function GetSimplePredictor() {
+/* Predicts games by looking at table position of team, and adjusting it by the length of streak they are having for home/away games. */
+/* Away streak of 3 means away team will be adjusted up table position by three places. */
+function GetStreakerPredictor() {
     return {
         name: "Streaker",
         predict: function(fixture) {
