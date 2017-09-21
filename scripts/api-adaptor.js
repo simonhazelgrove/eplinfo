@@ -47,7 +47,8 @@ function GetApiAdaptor() {
                 fixtures: _.map(self.apiFixtures.fixtures, self.convertApiFixture),
                 table: _.map(self.apiLeagueTable.standing, self.convertApiTableRow),
                 getWeekFixtures: self.getWeekFixtures,
-                adaptor: self
+                adaptor: self,
+                predictionResults: []
             };
             self.createTeamTablePositions(self.data);
             self.createTeamStreaks(self.data);
@@ -56,15 +57,46 @@ function GetApiAdaptor() {
             success();
         },
         getWeekFixtures: function (week) {
-            var self = this;
             var fixtures = _.where(this.fixtures, { week: parseInt(week) });
-            _.each(fixtures, function(fixture) {
+            this.adaptor.getPredictions(fixtures);
+            return fixtures;
+        },
+        getPredictions(fixtures) {
+            var self = this;
+            self.data.predictionResults = [];
+            // Predict each fixture
+            _.each(fixtures, function (fixture) {
                 fixture.predictions = [];
-                _.each(self.adaptor.predictors, function (predictor) {
-                    predictor.predict(fixture)
+                _.each(self.predictors, function (predictor) {
+                    var prediction = predictor.predict(fixture);
+                    fixture.predictions.push(prediction);
+                    if (fixture.completed) {
+                        self.ratePrediction(prediction, fixture);
+                    }
                 });
             });
-            return fixtures;
+        },
+        ratePrediction(prediction, fixture) {
+            var predictionCorrect = (prediction.homeTeamScore > prediction.awayTeamScore && fixture.homeTeamScore > fixture.awayTeamScore)
+                                    || (prediction.homeTeamScore < prediction.awayTeamScore && fixture.homeTeamScore < fixture.awayTeamScore)
+                                    || (prediction.homeTeamScore === prediction.awayTeamScore && fixture.homeTeamScore === fixture.awayTeamScore);
+            prediction.correct = predictionCorrect;
+
+            // Add result to list of results for this predictor
+            var result = this.findPredictionResult(prediction.predictorName);
+            result.results.push(predictionCorrect);
+        },
+        findPredictionResult: function(predictorName) {
+            var result = _.findWhere(this.data.predictionResults, { predictorName: predictorName });
+            // If prediction result doesnt exist, create one & add it to list
+            if (result === undefined) {
+                result = {
+                    predictorName: predictorName,
+                    results: []
+                };
+                this.data.predictionResults.push(result);
+            }
+            return result;
         },
         convertApiTeam: function (apiTeam, key) {
             var team = {

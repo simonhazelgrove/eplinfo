@@ -12,7 +12,7 @@ function GetStreakerPredictor() {
                 homeTeamScore: homePos <= awayPos ? 1 : 0,
                 awayTeamScore: awayPos <= homePos ? 1 : 0
             }
-            fixture.predictions.push(prediction);
+            return prediction;
         },
         applyStreakToPosition(position, streak) {
             if (streak.type == "W") {

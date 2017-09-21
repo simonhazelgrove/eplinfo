@@ -9,7 +9,7 @@ function GetSimplePredictor() {
                 homeTeamScore: homeWin ? 1 : 0,
                 awayTeamScore: homeWin ? 0 : 1
             }
-            fixture.predictions.push(prediction);
+            return prediction;
         }
     };
 }
