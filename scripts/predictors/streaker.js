@@ -16,9 +16,9 @@ function GetStreakerPredictor() {
         },
         applyStreakToPosition(position, streak) {
             if (streak.type == "W") {
-                position += streak.length;
-            } else if (streak.type == "L") {
                 position -= streak.length;
+            } else if (streak.type == "L") {
+                position += streak.length;
             }
             return position;
         }
