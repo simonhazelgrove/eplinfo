@@ -50,15 +50,17 @@ function GetApiDisplay() {
             var fixtures = data.getWeekFixtures(week);
             _.each(fixtures, function (fixture) {
                 fixtureHtml += "<div class='row row-striped'>";
-                fixtureHtml += "<div class='col'>" + fixture.homeTeam.name + " v " + fixture.awayTeam.name + "</div>";
+                fixtureHtml += "<div class='col-sm-4'>" + fixture.homeTeam.name + " v " + fixture.awayTeam.name + "</div>";
                 if (fixture.completed) {
-                    fixtureHtml += "<div class='col'>Final Score: " + fixture.homeTeamScore + " : " + fixture.awayTeamScore + "</div>";
+                    fixtureHtml += "<div class='col-sm-2'>Final Score:<br/> " + fixture.homeTeamScore + " : " + fixture.awayTeamScore + "</div>";
                 }
-                fixtureHtml += "<div class='col'>";
+                fixtureHtml += "<div class='col-sm-6'>";
                 _.each(fixture.predictions, function(prediction) {
-                    fixtureHtml += "<div>";
-                    fixtureHtml += prediction.predictorName + ": " + prediction.homeTeamScore + " : " + prediction.awayTeamScore + "";
+                    fixtureHtml += "<div class='container'><div class='row'>";
+                    fixtureHtml += "<div class='col-sm-6'>" + prediction.predictorName + "</div>"
+                    fixtureHtml += "<div class='col-sm-4'>" + prediction.homeTeamScore + " : " + prediction.awayTeamScore + "</div>";
                     if (fixture.completed) {
+                        fixtureHtml += "<div class='col-sm-2'>";
                         if ((fixture.homeTeamScore < fixture.awayTeamScore && prediction.homeTeamScore < prediction.awayTeamScore)
                            || (fixture.homeTeamScore > fixture.awayTeamScore && prediction.homeTeamScore > prediction.awayTeamScore)
                            || (fixture.homeTeamScore === fixture.awayTeamScore && prediction.homeTeamScore === prediction.awayTeamScore)) {
@@ -66,8 +68,9 @@ function GetApiDisplay() {
                         } else {
                             fixtureHtml += "<span class='text-danger'>&nbsp;&#10008;</span>";
                         }
+                        fixtureHtml += "</div>";
                     }
-                    fixtureHtml += "</div>";
+                    fixtureHtml += "</div></div>";
                 });
                 fixtureHtml += "</div>";
                 fixtureHtml += "</div>";
