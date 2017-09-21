@@ -66,7 +66,7 @@ function GetApiDisplay() {
                         if (prediction.correct) {
                             fixtureHtml += "<span class='text-success'>&nbsp;&#10004;</span>";
                         } else {
-                            fixtureHtml += "<span class='text-danger'>&nbsp;&#10008;</span>";
+                            fixtureHtml += "<span class='text-danger'>&nbsp;&#10060;</span>";
                         }
                         fixtureHtml += "</div>";
                     }
